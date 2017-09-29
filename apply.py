@@ -1,4 +1,6 @@
 import csv
+import smtplib
+from getpass import getpass
 
 def read_data():
     """
@@ -17,4 +19,20 @@ def read_data():
             print("{}: {}".format(i, row[0]))
             i += 1
 
+def login():
+    """
+    Connect and log in to email service
+    """
+    server_name = input("Enter email server (e.g. smtp.gmail.com): ")
+    print("Connecting...")
+    server = smtplib.SMTP(server_name, 587)
+    server.ehlo()
+    server.starttls()
+
+    email_address = input("Login to email.\nEmail address: ")
+    password = getpass("Password: ")
+    print("Logging in...")
+    server.login(email_address, password)
+
+login()
 read_data()
