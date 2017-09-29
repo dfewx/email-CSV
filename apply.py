@@ -34,5 +34,6 @@ def login():
     print("Logging in...")
     server.login(email_address, password)
 
-login()
-read_data()
+if __name__ == "__main__":
+    login()
+    read_data()
