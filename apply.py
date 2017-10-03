@@ -3,8 +3,7 @@ import smtplib
 from getpass import getpass
 
 def read_data():
-    """
-    Read data from .csv file
+    """Read data from .csv file
 
     Assumptions for .csv file columns:
     row 0: headers
@@ -20,9 +19,7 @@ def read_data():
             i += 1
 
 def login():
-    """
-    Connect and log in to email service
-    """
+    """Connect and log in to email service"""
     server_name = input("Enter email server (e.g. smtp.gmail.com): ")
     print("Connecting...")
     server = smtplib.SMTP(server_name, 587)
