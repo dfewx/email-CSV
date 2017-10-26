@@ -32,5 +32,6 @@ def login():
     server.login(email_address, password)
 
 if __name__ == "__main__":
+    print("This program sends emails to recipients extracted from .csv files.")
     login()
     read_data()
