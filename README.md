@@ -1,2 +1,2 @@
-# job-apply
-Script to apply to jobs from .csv file
+# email-CSV
+Script to send emails to recipients extracted from .csv file
