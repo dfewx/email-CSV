@@ -1,6 +1,16 @@
 import csv
 import smtplib
 from getpass import getpass
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+
+text = """
+Hi {}!
+
+This is a sample email message.
+
+Luis"""
 
 def read_data():
     """Read data from .csv file
@@ -18,20 +28,36 @@ def read_data():
             print("{}: {}".format(i, row[0]))
             i += 1
 
-def login():
-    """Connect and log in to email service"""
+def send_mail():
+    """Log in to email service and send mail to recipient specified"""
+
+    # Connect to email service
     server_name = input("Enter email server (e.g. smtp.gmail.com): ")
     print("Connecting...")
     server = smtplib.SMTP(server_name, 587)
     server.ehlo()
     server.starttls()
 
-    email_address = input("Login to email.\nEmail address: ")
+    # Log in
+    print("Login to email...")
+    email_address = input("Email address: ")
     password = getpass("Password: ")
-    print("Logging in...")
     server.login(email_address, password)
+
+    # Compose email
+    print("Compose new message...")
+    msg = MIMEMultipart()
+    msg['Subject'] = input("Email subject: ")
+    msg['From'] = email_address
+    msg['To'] = input("Email recipient: ")
+    msg.attach(MIMEText(text.format(msg['To']), ('plain')))
+
+    # Send email
+    server.send_message(msg)
+    print("Sent email!")
+    server.quit()
 
 if __name__ == "__main__":
     print("This program sends emails to recipients extracted from .csv files.")
-    login()
-    read_data()
+    send_mail()
+    # read_data()
